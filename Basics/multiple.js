@@ -2,39 +2,87 @@
 
 const redux = require('redux')
 const createStore = redux.legacy_createStore
+const combineReducers = redux.combineReducers
 
 const BUY_CAKE = 'BUY_CAKE'
+const BUY_ICECREAM = 'BUY_ICECREAM'
+
 
 
 //ACTION
 function buyCake() {
     return{
         type: BUY_CAKE,
-        info: 'First redux action'
+        info: 'First redux action',
+    }
+}
+
+function buyIcecream() {
+    return{
+        type: BUY_ICECREAM,
+        info: 'Second redux action',
     }
 }
 
 
+
+
+
+// Initializing state
 // (previousState, action) => newState
 
-const initialState = {
-    numofCakes: 10,
+const initialStateCake = {
+    numOfCakes: 10,
 }
 
-const reducer = (state = initialState, action) => {
+const initialStateIcecream = {
+    numOfIcecream : 15,
+}
+
+
+
+const CakeReducer = (state = initialStateCake, action) => {
+    // console.log(action.type)
     switch(action.type) {
         case BUY_CAKE : return {
             ...state,
-            numofCakes: state.numofCakes - 1
+            numOfCakes: state.numOfCakes - 1
         } 
 
         default: return state
     }
 }
 
-const store = createStore(reducer);
+const IcecreamReducer = (state = initialStateIcecream, action) => {
+    // console.log(action.type)
+    switch(action.type) {
+        case BUY_ICECREAM : return {
+            ...state,
+            numOfIcecream: state.numOfIcecream - 1
+        } 
+
+        default: return state
+    }
+}
+
+const rootReducer = combineReducers({
+    cake: CakeReducer,
+    icecream: IcecreamReducer
+})
+
+const store = createStore(rootReducer);
 console.log('Initial state', store.getState())
 const unsubscribe = store.subscribe(() => console.log('Updated state', store.getState()))
+
+console.log('Buying Cake')
 store.dispatch(buyCake())
 store.dispatch(buyCake())
 store.dispatch(buyCake())
+
+console.log('Buying Icecream')
+store.dispatch(buyIcecream())
+store.dispatch(buyIcecream())
+store.dispatch(buyIcecream())
+
+
+unsubscribe()
