@@ -1,17 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
+import { buyCake  } from '../redux/export'
+import { connect } from 'react-redux'
 
-const CakeCotainer = () => {
+const CakeCotainer = (props) => {
   return (
     <Div>
-        <h1>Number of Cakes</h1>
-        <button>Buy Cake</button>
+        <h1>Number of Cakes - {props.numOfCakes}</h1>
+        <button onClick={props.buyCake}>Buy Cake</button>
     </Div>
   )
 }
 
 
-export default CakeCotainer
 
 const Div = styled.div`
     padding-top: 20px;
@@ -21,3 +22,19 @@ const Div = styled.div`
     align-items: center;
 
 `
+
+
+const mapStateToProps = state => {
+  return{
+    numOfCakes: state.numOfCakes
+  }
+}
+
+const mapDipatctToProps = dispatch => {
+  return{
+    buyCake: () => dispatch(buyCake())
+  }
+}
+
+
+export default connect(mapStateToProps, mapDipatctToProps)(CakeCotainer)
