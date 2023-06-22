@@ -33,7 +33,7 @@ function buyBoth() {
 
 
 // Initializing state
-// (previousState, action) => newState
+
 
 const initialState = {
     numOfCakes: 10,
@@ -41,6 +41,8 @@ const initialState = {
     
 }
 
+
+// (previousState, action) => newState
 const reducer = (state = initialState, action) => {
     // console.log(action.type)
     switch(action.type) {
