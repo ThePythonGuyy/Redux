@@ -26,7 +26,7 @@ const Div = styled.div`
 
 const mapStateToProps = state => {
   return{
-    numOfCakes: state.numOfCakes
+    numOfCakes: state.cake.numOfCakes
   }
 }
 
